@@ -4,6 +4,8 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"]
-    }
-  }
+    },
+    "skipLibCheck": true
+  },
+  "exclude": ["public", "node_modules", "dist"]
 }
