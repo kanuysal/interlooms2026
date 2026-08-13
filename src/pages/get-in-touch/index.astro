@@ -1,0 +1,211 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { buildProjectImages, buildProjectColors } from '../../data/categories';
+
+const projectImages = buildProjectImages();
+const projectColors = buildProjectColors();
+---
+
+<Layout
+  title="Get in Touch | INTERLOOMS"
+  description="Contact INTERLOOMS — info@interlooms.com · serkan@interlooms.com · C/ Santa Rosa, 38, 03802 Alcoy, Spain · +34 633 623 632"
+  bodyClass="wp-singular page page-template-contact"
+  startLocation="contact"
+>
+  <main
+    data-router-view="contact"
+    data-iswebgl
+    data-header-classes="fill-cream t-cream t-black@md"
+    data-start-location="contact"
+    data-project-images={JSON.stringify(projectImages)}
+    data-project-colors={JSON.stringify(projectColors)}
+  >
+    <div class="contact | js-contact-page">
+      <div class="contact__inner">
+
+        <!-- Title -->
+        <h1 class="contact__title t-75 t-120@sm mb-0 overflow-hidden | js-contact-title">Get in touch.</h1>
+
+        <!-- Intro copy -->
+        <h2 class="contact__subtitle t-sans t-600 t-12 t-14@sm t-16@lg t-uppercase t-black t-ls-0.06 mb-0.37 mb-0.8@md | js-contact-subtitle">
+          INTERLOOMS
+        </h2>
+        <p class="mb-1.5 mb-2@md pr-5 pr-0@xs t-lh-1.6 | js-contact-copy">
+          To meet us better, you are welcome with your questions. We act as a strategic bridge connecting Turkey's textile power with Europe and the global market, ensuring seamless quality across every transaction.
+        </p>
+
+        <!-- Contact details grid -->
+        <div class="grid mb-2 mb-3@md">
+          <!-- Email 1 -->
+          <div class="w-1/2@md mb-1 mb-0@md">
+            <h2 class="contact__subtitle t-sans t-600 t-12 t-14@sm t-16@lg t-uppercase t-black t-ls-0.06 mb-0.6 | js-contact-subtitle">
+              E-mail
+            </h2>
+            <div class="d-flex items-center mb-0.37">
+              <div class="icon icon--dark icon--small | js-icon">
+                <svg class="icon__svg">
+                  <circle/>
+                  <g class="icon__svg-icon">
+                    <svg><use xlink:href="/assets/images/svgspritee053.svg#mail"></use></svg>
+                  </g>
+                </svg>
+              </div>
+              <a href="mailto:info@interlooms.com" class="link link--no-rotation overflow-hidden">
+                <div>
+                  <span class="link__text | js-contact-link">info@interlooms.com</span>
+                  <span class="link__text link__text--hover">info@interlooms.com</span>
+                </div>
+              </a>
+            </div>
+            <div class="d-flex items-center mb-0.37">
+              <div class="icon icon--dark icon--small | js-icon">
+                <svg class="icon__svg">
+                  <circle/>
+                  <g class="icon__svg-icon">
+                    <svg><use xlink:href="/assets/images/svgspritee053.svg#mail"></use></svg>
+                  </g>
+                </svg>
+              </div>
+              <a href="mailto:serkan@interlooms.com" class="link link--no-rotation overflow-hidden">
+                <div>
+                  <span class="link__text | js-contact-link">serkan@interlooms.com</span>
+                  <span class="link__text link__text--hover">serkan@interlooms.com</span>
+                </div>
+              </a>
+            </div>
+          </div>
+
+          <!-- Phone -->
+          <div class="w-1/2@md mb-1 mb-0@md">
+            <h2 class="contact__subtitle t-sans t-600 t-12 t-14@sm t-16@lg t-uppercase t-black t-ls-0.06 mb-0.6 | js-contact-subtitle">
+              Phone
+            </h2>
+            <div class="d-flex items-center mb-0.37">
+              <div class="icon icon--dark icon--small | js-icon">
+                <svg class="icon__svg">
+                  <circle/>
+                  <g class="icon__svg-icon">
+                    <svg><use xlink:href="/assets/images/svgspritee053.svg#right-arrow"></use></svg>
+                  </g>
+                </svg>
+              </div>
+              <a href="tel:+34633623632" class="link link--no-rotation overflow-hidden">
+                <div>
+                  <span class="link__text | js-contact-link">+34 633 623 632</span>
+                  <span class="link__text link__text--hover">+34 633 623 632</span>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Address -->
+        <div class="mb-2 mb-3@md">
+          <h2 class="contact__subtitle t-sans t-600 t-12 t-14@sm t-16@lg t-uppercase t-black t-ls-0.06 mb-0.6 | js-contact-subtitle">
+            Address
+          </h2>
+          <div class="d-flex items-start">
+            <div class="icon icon--dark icon--small | js-icon" style="flex-shrink:0; margin-top:.1rem;">
+              <svg class="icon__svg">
+                <circle/>
+                <g class="icon__svg-icon">
+                  <svg><use xlink:href="/assets/images/svgspritee053.svg#right-arrow"></use></svg>
+                </g>
+              </svg>
+            </div>
+            <address style="font-style:normal; line-height:1.6;" class="t-lh-1.6 | js-contact-copy">
+              C/ Santa Rosa, 38<br />
+              03802 Alcoy, SPAIN
+            </address>
+          </div>
+        </div>
+
+        <!-- Global Bridge tagline -->
+        <div class="mb-3 mb-4@md">
+          <h2 class="contact__subtitle t-sans t-600 t-12 t-14@sm t-16@lg t-uppercase t-black t-ls-0.06 mb-0.6 | js-contact-subtitle">
+            Global Bridge
+          </h2>
+          <p class="mb-1 mb-1.1@md pr-10@sm pr-7@md t-lh-1.6 | js-contact-copy">
+            We act as a strategic bridge connecting Turkey's textile power with Europe and the global market. Our network of 150+ trusted partners spans Spain, Italy, Turkey, and beyond — ensuring seamless quality, consistency, and speed on every order.
+          </p>
+          <p class="pr-10@sm pr-7@md t-lh-1.6 | js-contact-copy">
+            Whether you're sourcing raw materials, yarns, garment fabrics, or recycling machinery — our consultancy team is ready to assist.
+          </p>
+        </div>
+
+        <!-- CTA row -->
+        <div class="mb-3 mb-5@md">
+          <a href="mailto:info@interlooms.com" class="btn t-black | js-btn btn--outline" style="display:inline-flex;">
+            <div class="overflow-hidden relative z-10">
+              <div class="btn__text | js-btn-text"><span class="d-block">Write to us</span></div>
+              <div class="btn__text btn__text--hover | js-btn-hover-text"><span class="d-block">Write to us</span></div>
+            </div>
+            <div class="btn__outline absolute fill">
+              <div class="btn__outline__br absolute fill | js-btn-outline-br"><div class="absolute fill | js-btn-outline-inner"></div></div>
+              <div class="btn__outline__bl absolute fill | js-btn-outline-bl"><div class="absolute fill | js-btn-outline-inner"></div></div>
+              <div class="btn__outline__tl absolute fill | js-btn-outline-tl"><div class="absolute fill | js-btn-outline-inner"></div></div>
+              <div class="btn__outline__tr absolute fill | js-btn-outline-tr"><div class="absolute fill | js-btn-outline-inner"></div></div>
+            </div>
+            <div class="btn__hover | js-btn-hover" style="opacity: 0;"><div></div></div>
+          </a>
+        </div>
+
+        <!-- Mobile navigation -->
+        <div class="contact__menu d-block d-none@sm">
+          <h2 class="contact__subtitle t-sans t-600 t-12 t-14@sm t-16@lg t-uppercase t-black t-ls-0.06 mb-0.6 mb-0.8@md | js-contact-subtitle">Navigation</h2>
+          <ul>
+            <li class="mb-0.37">
+              <div class="icon icon--dark icon--small | js-icon">
+                <svg class="icon__svg"><circle/><g class="icon__svg-icon"><svg><use xlink:href="/assets/images/svgspritee053.svg#right-arrow"></use></svg></g></svg>
+              </div>
+              <a href="/fields/" class="footer__link js-footer-link">Fields</a>
+            </li>
+            <li class="mb-0.37">
+              <div class="icon icon--dark icon--small | js-icon">
+                <svg class="icon__svg"><circle/><g class="icon__svg-icon"><svg><use xlink:href="/assets/images/svgspritee053.svg#right-arrow"></use></svg></g></svg>
+              </div>
+              <a href="/about/" class="footer__link js-footer-link">About us</a>
+            </li>
+            <li class="mb-0.37">
+              <div class="icon icon--dark icon--small | js-icon">
+                <svg class="icon__svg"><circle/><g class="icon__svg-icon"><svg><use xlink:href="/assets/images/svgspritee053.svg#right-arrow"></use></svg></g></svg>
+              </div>
+              <a href="/privacy/" class="footer__link js-footer-link">Privacy</a>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- Footer -->
+      <footer class="footer bg-cream z-100 w-1/1 js-footer" aria-label="Website footer">
+        <div class="footer__border overflow-hidden | js-footer-border"><div class="footer__border__inner"></div></div>
+        <div class="d-flex items-center justify-between px-1@sm px-2@lg py-1 overflow-hidden">
+          <span class="t-serif t-20 t-bold fill-black d-none d-block@lg | js-footer-logo">INTERLOOMS</span>
+          <div class="d-flex items-center justify-between justify-end@lg w-1/1">
+            <nav aria-label="Footer navigation">
+              <ul class="d-flex list-unstyled">
+                <li><a href="/privacy/" class="footer__link link | js-footer-link"><div><span class="link__text">Privacy</span><span class="link__text link__text--hover">Privacy</span></div></a></li>
+                <li><a href="/about/" class="footer__link link | js-footer-link"><div><span class="link__text">About us</span><span class="link__text link__text--hover">About us</span></div></a></li>
+                <li><a href="/fields/" class="footer__link link | js-footer-link"><div><span class="link__text">Fields</span><span class="link__text link__text--hover">Fields</span></div></a></li>
+              </ul>
+            </nav>
+            <div class="t-10 t-black t-lh-1 t-ls-0.1 t-uppercase ml-2">INTERLOOMS &copy;{new Date().getFullYear()}</div>
+          </div>
+        </div>
+      </footer>
+    </div>
+  </main>
+</Layout>
+
+<script is:inline>
+  (function() {
+    const main = document.querySelector('[data-router-view="contact"]');
+    if (!main) return;
+    if (window.globalData) {
+      window.globalData.startLocation = main.dataset.startLocation || 'contact';
+      window.globalData.projectImages = JSON.parse(main.dataset.projectImages || '[]');
+      window.globalData.projectColors = JSON.parse(main.dataset.projectColors || '[]');
+    }
+  })();
+</script>

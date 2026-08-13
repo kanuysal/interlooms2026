@@ -1,0 +1,233 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { buildProjectImages, buildProjectColors } from '../../data/categories';
+
+const projectImages = buildProjectImages();
+const projectColors = buildProjectColors();
+
+const expertise = [
+  {
+    title: "Recycled Fiber Development",
+    desc: "Engineering sustainable raw materials that reduce environmental impact without compromising quality."
+  },
+  {
+    title: "Sustainable Yarn Production",
+    desc: "Creating high-performance yarns for weaving and knitting using eco-friendly processes."
+  },
+  {
+    title: "Premium Fabric Manufacturing",
+    desc: "Producing exceptional woven fabrics that meet the rigorous standards of global fashion brands."
+  },
+  {
+    title: "Wedding Dress Production",
+    desc: "Crafting luxury bridalwear with intricate detailing and superior craftsmanship for international markets."
+  },
+  {
+    title: "Fashion Sourcing & Production",
+    desc: "Managing the entire supply chain from fabric selection to garment manufacturing and logistics."
+  },
+  {
+    title: "Global Trade Consulting",
+    desc: "Providing strategic guidance on international trade regulations, customs, and market entry."
+  },
+  {
+    title: "Sustainability Strategy",
+    desc: "Developing comprehensive roadmaps for brands to transition towards circular and ethical practices."
+  },
+];
+
+const fields = [
+  { label: "PET Chips",                sub: "Raw Material & Polymer Sourcing",             href: "/fields/pet-chips/" },
+  { label: "PES Filament Yarns",       sub: "Synthetic Filament Yarn Trading",              href: "/fields/pes-filament/" },
+  { label: "PES Staple Fibers",        sub: "Staple Fiber Supply & Specification",         href: "/fields/pes-staple-fibers/" },
+  { label: "Textile Clips",            sub: "Post-Industrial Textile Waste Sourcing",       href: "/fields/textile-clips-for-recycling/" },
+  { label: "Recycled Cotton Fibers",   sub: "Mechanical Cotton Recycling & Trading",       href: "/fields/recycled-cotton-fibers/" },
+  { label: "Recycled OE Yarns",        sub: "Recycled Open-End Rotor Yarns",               href: "/fields/oe-yarns-recycled/" },
+  { label: "Home Textiles",            sub: "Home Textile Sourcing & Development",          href: "/fields/hometextile/" },
+  { label: "Apparel Fabrics",          sub: "Apparel Fabric Sourcing & Development",        href: "/fields/fabrics-for-garments/" },
+  { label: "Luxury Bridalwear",        sub: "Bridal & Formal Wear Fabric Sourcing",         href: "/fields/wedding-dresses/" },
+  { label: "Recycling Machinery",      sub: "Textile Machinery Brokerage & Advisory",      href: "/fields/recycling-machinery/" },
+];
+---
+
+<Layout
+  title="About Us | INTERLOOMS"
+  description="INTERLOOMS is a global textile consultancy and brokerage firm with over 14 years of hands-on expertise in recycling, yarn, fabric development, and garment production."
+  bodyClass="wp-singular page page-template-about"
+  startLocation="about"
+>
+  <main
+    data-router-view="about"
+    data-iswebgl
+    data-header-classes="fill-cream t-cream t-black@md"
+    data-start-location="about"
+    data-project-images={JSON.stringify(projectImages)}
+    data-project-colors={JSON.stringify(projectColors)}
+  >
+    <div class="about | js-about-page">
+      <article>
+        <div class="about__inner">
+
+          <!-- ── SECTION 1 · Intro ── -->
+          <div class="about__section about__section--first js-about-section">
+            <div>
+              <div class="about__wrapper">
+                <h1 class="about__title t-75 t-140@sm t-210@lg overflow-hidden mb-1.5 mb-3@sm mb-4@lg | js-about-title">About us.</h1>
+              </div>
+              <div class="d-flex flex-wrap">
+                <div class="about__col about__col--left w-1/2@sm pr-1@sm pr-5@lg flex-no-shrink@sm order-1">
+                  <h2 class="t-sans t-400 t-18 t-20@sm t-28@lg t-lh-1.3 t-lh-1.2@lg t-ls-0.04 mb-3 mt-0 my-0@sm | js-intro-title">
+                    INTERLOOMS establishes reliable connections between suppliers, producers and consumers, acting as a bridge in the global textile market.
+                  </h2>
+                </div>
+                <div class="about__col about__col--right w-1/2@sm pl-1@sm pl-2.5@lg mb-4.5 mb-0@sm flex-no-shrink@sm order-3 order-2@sm p-no-bottom-margin | js-intro-p">
+                  <p>We leverage over a decade of industry expertise to ensure seamless trade flow across borders. Our network spans more than 150 trusted partners in Spain, Italy, Turkey, and beyond, guaranteeing quality and consistency.</p>
+                  <p>By handling every detail from sourcing to delivery, we empower businesses to focus on growth and innovation.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="about__wrapper pb-4.5 pb-6.25@sm pb-10@lg d-flex flex-column items-end">
+              <div class="w-1/1">
+                <h2 class="t-45 t-90@sm t-125@lg t-300 mb-1.5 mb-5.5@sm mb-7@lg mt-0 pr-0 pr-5@sm pr-0@md t-lh-1 t-lh-1.1@lg" animate-from="preset: 'splitCharsRotateIn'">
+                  Engineering Excellence.
+                </h2>
+              </div>
+              <div class="w-1/1 w-2/3@sm pl-6@lg mr-3@lg p-no-bottom-margin" animate-from="preset: 'splitTextRotateIn', children: 'p', rotate: 7">
+                <p>With over 14 years of hands-on experience in textile recycling, yarn and fabric development, and garment production, we offer comprehensive consultancy services tailored to textile manufacturers, fashion brands, and startups worldwide.</p>
+                <p>Led by a Ph.D. textile engineer, our team combines scientific rigor with creative vision to solve complex industry challenges. We don't just supply materials — we engineer solutions that drive sustainability and efficiency.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- ── SECTION 2 · Fields ── -->
+          <div class="about__section about__section--second js-about-section">
+            <div class="about__wrapper relative mb-4.5 mb-7@sm mb-7.5@lg pt-4.5 pt-6.25@sm pt-0@md">
+              <h2 class="t-45 t-90@sm t-125@lg mt-0 mb-3 mb-4.5@lg t-lh-1 t-lh-1.1@lg" animate-from="preset: 'splitCharsRotateIn', scrollTrigger: { start: 'top top+=70%' }">
+                10 Core Fields -
+              </h2>
+              <div class="w-2/3">
+                <div class="about__title--absolute w-1/1 d-flex justify-end" animate-from="preset: 'parallax', speed: 0.6">
+                  <div class="t-serif t-300 t-ls-0.02 t-64 t-140@sm t-210@lg" animate-from="preset: 'splitCharsRotateIn', scrollTrigger: { start: 'top top+=70%' }">
+                    Expertise.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="about__wrapper--wide d-flex flex-column flex-row@sm flex-wrap@sm mb-4.5 mb-6.25@sm mb-10@lg">
+              {fields.map(f => (
+                <div class="w-1/2@sm pr-1.5@sm pr-3.5@lg mb-3 mb-4@sm">
+                  <a href={f.href} style="display:inline-block; text-decoration:none; color:inherit;">
+                    <h3 class="t-sans t-600 t-12 t-14@sm t-16@lg t-uppercase t-ls-0.6 mt-0 mb-0.6 t-black" animate-from="preset: 'splitTextRotateIn', rotate: 7">
+                      {f.label}
+                    </h3>
+                  </a>
+                  <div class="p-no-bottom-margin" animate-from="preset: 'splitTextRotateIn', children: 'p', rotate: 7">
+                    <p>{f.sub}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <!-- ── SECTION 3 · Consultancy & Technical Advisory ── -->
+          <div class="about__section js-about-section">
+            <div class="about__wrapper pb-4.5 pb-6.25@sm pb-10@lg d-flex flex-column items-end">
+              <div class="w-1/1">
+                <h2 class="t-45 t-90@sm t-125@lg t-300 mb-1.5 mb-5.5@sm mb-7@lg mt-0 t-lh-1 t-lh-1.1@lg" animate-from="preset: 'splitCharsRotateIn', scrollTrigger: { start: 'top top+=70%' }">
+                  Textile Consultancy.
+                </h2>
+              </div>
+              <div class="w-1/1 w-2/3@sm pl-6@lg mr-3@lg p-no-bottom-margin" animate-from="preset: 'splitTextRotateIn', children: 'p', rotate: 7">
+                <p>Expert guidance from fiber to fashion. Backed by over 14 years of industry experience and led by a Ph.D. textile engineer, INTERLOOMS offers technical consultancy for spinning mills, weavers, recycling plants, and fashion brands.</p>
+                <p>Our consulting services cover raw material selection, fiber blending optimization, GRS & OEKO-TEX certification alignment, quality control auditing, and strategic supply chain management across international markets.</p>
+                <p style="margin-top: 1rem;">
+                  <a href="/get-in-touch/" style="display:inline-block; text-decoration:underline; font-weight:600; color:inherit;">
+                    Request Consultancy Services →
+                  </a>
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- ── SECTION 4 · Capabilities ── -->
+          <div class="about__section js-about-section">
+            <div class="about__wrapper relative mb-4.5 mb-7@sm pt-4.5 pt-6.25@sm">
+              <h2 class="t-45 t-90@sm t-125@lg mt-0 mb-3 mb-4.5@lg t-lh-1 t-lh-1.1@lg" animate-from="preset: 'splitCharsRotateIn', scrollTrigger: { start: 'top top+=70%' }">
+                Capabilities.
+              </h2>
+            </div>
+            <div class="about__wrapper--wide mb-4.5 mb-6.25@sm mb-10@lg">
+              {expertise.map((item, i) => (
+                <div style="border-top: 1px solid rgba(0,0,0,0.12); padding: 1.25rem 0;" animate-from="preset: 'splitTextRotateIn', children: 'p', rotate: 7">
+                  <div class="d-flex justify-between items-start">
+                    <div class="w-2/5@sm">
+                      <h3 class="t-sans t-600 t-12 t-14@sm t-16@lg t-uppercase t-ls-0.4 mt-0 mb-0.5 mb-0@sm">
+                        {String(i + 1).padStart(2, '0')}. {item.title}
+                      </h3>
+                    </div>
+                    <div class="w-3/5@sm pl-1.5@sm p-no-bottom-margin">
+                      <p style="margin:0">{item.desc}</p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <!-- ── SECTION 5 · Global Network ── -->
+          <div class="about__section js-about-section">
+            <div class="about__wrapper pb-4.5 pb-6.25@sm pb-10@lg d-flex flex-column items-end">
+              <div class="w-1/1">
+                <h2 class="t-45 t-90@sm t-125@lg t-300 mb-1.5 mb-5.5@sm mb-7@lg mt-0 t-lh-1 t-lh-1.1@lg" animate-from="preset: 'splitCharsRotateIn', scrollTrigger: { start: 'top top+=70%' }">
+                  Global Network.
+                </h2>
+              </div>
+              <div class="w-1/1 w-2/3@sm pl-6@lg mr-3@lg p-no-bottom-margin" animate-from="preset: 'splitTextRotateIn', children: 'p', rotate: 7">
+                <p>We've established reliable connections with over 150 partners across Spain, Italy, Turkey, and beyond, creating a truly global ecosystem. Our strong relationships with spinning mills, weavers, and garment manufacturers allow us to offer unparalleled flexibility and speed.</p>
+                <p>We navigate the complexities of international logistics to ensure your products arrive on time, every time. Whether you need raw fibers from Turkey or luxury fabrics from Italy, our network brings the world's best textiles to your doorstep.</p>
+                <p style="margin-top: 1rem;">
+                  <a href="/get-in-touch/" style="display:inline-block; text-decoration:underline; font-weight:600; color:inherit;">
+                    Get in touch →
+                  </a>
+                </p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </article>
+
+      <!-- Footer -->
+      <footer class="footer bg-cream z-100 w-1/1 js-footer" aria-label="Website footer">
+        <div class="footer__border overflow-hidden | js-footer-border"><div class="footer__border__inner"></div></div>
+        <div class="d-flex items-center justify-between px-1@sm px-2@lg py-1 overflow-hidden">
+          <span class="t-serif t-20 t-bold fill-black d-none d-block@lg | js-footer-logo">INTERLOOMS</span>
+          <div class="d-flex items-center justify-between justify-end@lg w-1/1">
+            <nav aria-label="Footer navigation">
+              <ul class="d-flex list-unstyled">
+                <li><a href="/about/" class="footer__link d-none d-block@sm link | js-footer-link"><div><span class="link__text">About us</span><span class="link__text link__text--hover">About us</span></div></a></li>
+                <li><a href="/fields/" class="footer__link d-none d-block@sm link | js-footer-link"><div><span class="link__text">Fields</span><span class="link__text link__text--hover">Fields</span></div></a></li>
+                <li><a href="/get-in-touch/" class="footer__link d-none d-block@sm link | js-footer-link"><div><span class="link__text">Contact</span><span class="link__text link__text--hover">Contact</span></div></a></li>
+              </ul>
+            </nav>
+            <div class="t-10 t-black t-lh-1 t-ls-0.1 t-uppercase ml-2">INTERLOOMS &copy;{new Date().getFullYear()}</div>
+          </div>
+        </div>
+      </footer>
+    </div>
+  </main>
+</Layout>
+
+<script is:inline>
+  (function() {
+    const main = document.querySelector('[data-router-view="about"]');
+    if (!main) return;
+    if (window.globalData) {
+      window.globalData.startLocation = main.dataset.startLocation || 'about';
+      window.globalData.projectImages = JSON.parse(main.dataset.projectImages || '[]');
+      window.globalData.projectColors = JSON.parse(main.dataset.projectColors || '[]');
+    }
+  })();
+</script>

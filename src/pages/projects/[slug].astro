@@ -1,0 +1,389 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { CATEGORIES, getCategoryBySlug, buildProjectImages, buildProjectColors } from '../../data/categories';
+
+export async function getStaticPaths() {
+  return CATEGORIES.map((cat, idx) => {
+    const nextCat = CATEGORIES[(idx + 1) % CATEGORIES.length];
+    return {
+      params: { slug: cat.slug },
+      props: { category: cat, nextCategory: nextCat, categoryIndex: idx }
+    };
+  });
+}
+
+const { category, nextCategory, categoryIndex } = Astro.props;
+const projectImages = buildProjectImages();
+const projectColors = buildProjectColors();
+
+// Images from public/fields/[folderName]/
+const folderPath = `/fields/${category.folderName}`;
+const img1 = `${folderPath}/1.jpg`;
+const img2 = `${folderPath}/2.jpg`;
+const img3 = `${folderPath}/3.jpg`;
+
+const nextFolderPath = `/fields/${nextCategory.folderName}`;
+const nextImg1 = `${nextFolderPath}/1.jpg`;
+const nextImg2 = `${nextFolderPath}/2.jpg`;
+
+// --- Rich content per category ---
+interface CategoryContent {
+  tagline: string;
+  role: string;
+  origin: string;
+  description1: string;
+  description2: string;
+}
+
+const DEFAULT_MARKETS = "EUROPE · USA · LATAM · NORTH AFRICA";
+
+const CONTENT: Record<string, CategoryContent> = {
+  "pet-chips": {
+    tagline: "Raw Material & Polymer Sourcing",
+    role: "Trading & Technical Brokerage",
+    origin: DEFAULT_MARKETS,
+    description1: `PET (Polyethylene Terephthalate) chips are the primary raw material for synthetic fiber production. INTERLOOMS sources virgin and recycled-grade PET chips directly from leading polymer producers across Europe, Asia, and the Americas, ensuring consistent IV (Intrinsic Viscosity) levels, low moisture content, and reliable batch-to-batch quality.`,
+    description2: `Our procurement network covers food-grade rPET, textile-grade PET, and high-tenacity variants tailored for technical applications. We manage logistics, quality certification, and customs documentation for seamless international deliveries.`,
+  },
+  "pes-filament": {
+    tagline: "Synthetic Filament Yarn Trading",
+    role: "Trading & Technical Brokerage",
+    origin: DEFAULT_MARKETS,
+    description1: `Polyester filament yarns — DTY, FDY, POY — form the backbone of modern textile production. INTERLOOMS connects textile mills and weavers with reliable spinners offering the full denier and filament count spectrum, from ultra-fine microfilaments to heavy industrial counts, in semi-dull, full-dull, bright, and trilobal optical variants.`,
+    description2: `We specialize in consignment-based trading models and technical support for shade consistency, elongation, and tenacity parameters. Our sourcing covers standard, recycled, and specialty grades including anti-bacterial, moisture-wicking, and cationic dyeable types.`,
+  },
+  "pes-staple-fibers": {
+    tagline: "Staple Fiber Supply & Specification",
+    role: "Trading & Technical Brokerage",
+    origin: DEFAULT_MARKETS,
+    description1: `Polyester staple fibers are essential in ring-spinning, open-end spinning, and nonwoven production. INTERLOOMS sources conjugate, hollow, solid, and siliconized variants in a comprehensive denier range (0.9D–15D) and cut lengths optimized for cotton blending, pure PES spinning, or technical nonwoven applications.`,
+    description2: `We work closely with fiber producers to match exact fiber specifications — including tenacity, elongation, crimp frequency, and finish type — ensuring compatibility with the customer's spinning frame and end-product requirements. Recycled (rPET) staple fibers with GRS certification are also available.`,
+  },
+  "textile-clips-for-recycling": {
+    tagline: "Post-Industrial Textile Waste Sourcing",
+    role: "Recycling Brokerage",
+    origin: DEFAULT_MARKETS,
+    description1: `Textile clips and cutting waste represent a significant recyclable resource in garment manufacturing. INTERLOOMS aggregates and trades post-industrial textile clips — sorted by fiber content (PES, CO, PA, mixed) and color (white, colored, mixed) — from garment factories and vertical mills to mechanical and chemical recyclers worldwide.`,
+    description2: `We provide full traceability documentation, fiber composition testing, and logistics coordination. Our quality sorting process ensures recyclers receive material that meets their process requirements, reducing downtime and improving recycled fiber output quality.`,
+  },
+  "recycled-cotton-fibers": {
+    tagline: "Mechanical Cotton Recycling & Trading",
+    role: "Recycling & Fiber Trading",
+    origin: DEFAULT_MARKETS,
+    description1: `Recycled cotton fibers — derived from cutting waste, denim, and post-consumer textiles — provide a sustainable and cost-effective alternative to virgin cotton in ring and open-end spinning. INTERLOOMS trades colored and white-grade recycled cotton fibers with defined staple length, micronaire value, and trash content specifications.`,
+    description2: `Our supplier network consists of certified mechanical recycling facilities operating industrial garnetting and opening lines. We facilitate direct sourcing agreements between recyclers and spinners, supporting the circular economy goals of our clients through transparent, traceable supply chains.`,
+  },
+  "oe-yarns-recycled": {
+    tagline: "Recycled Open-End Yarn Trading",
+    role: "Yarn Trading & Specification",
+    origin: DEFAULT_MARKETS,
+    description1: `Open-end (OE/rotor) yarns spun from recycled fiber are widely used in denim, workwear, home textiles, and industrial fabrics. INTERLOOMS sources recycled OE yarns in Ne 6–30 counts, in both colored and natural variants, from verified spinning mills using certified recycled cotton and polyester inputs.`,
+    description2: `We evaluate yarn quality through tenacity, evenness, hairiness, and count variation testing, providing buyers with full technical data sheets. Our trading model offers spot cargo purchases, contract volumes, and custom-count development partnerships between spinners and brands.`,
+  },
+  "hometextile": {
+    tagline: "Home Textile Sourcing & Development",
+    role: "Product Development & Trading",
+    origin: DEFAULT_MARKETS,
+    description1: `From bedding and towels to curtains and table linen, home textiles demand consistent quality, repeatable color standards, and reliable delivery timelines. INTERLOOMS connects buyers — retailers, brands, importers — with technically capable weavers and knitters specializing in cotton, polyester, microfiber, and blended home textile products.`,
+    description2: `Our services include product development support, lab-dip coordination, compliance testing (OEKO-TEX®, GOTS, Bluesign®), and order management across the full production cycle. We operate as a trusted intermediary, maintaining strict quality control from yarn selection to finished goods inspection.`,
+  },
+  "fabrics-for-garments": {
+    tagline: "Apparel Fabric Sourcing & Development",
+    role: "Fabric Trading & Technical Advisory",
+    origin: DEFAULT_MARKETS,
+    description1: `The right fabric defines the final garment's performance, drape, and durability. INTERLOOMS sources woven and knitted fabrics across all major fiber groups — cotton, polyester, nylon, wool, linen, and blends — for apparel brands, CMT manufacturers, and vertically integrated garment factories.`,
+    description2: `Our fabric sourcing covers both standard stock programs and custom-developed constructions. We coordinate yarn, weaving structure, dyeing, finishing, and certification processes, providing complete technical packages to buyers who need speed-to-market without sacrificing quality control.`,
+  },
+  "wedding-dresses": {
+    tagline: "Bridal & Formal Wear Fabric Sourcing",
+    role: "Luxury Fabric Brokerage",
+    origin: DEFAULT_MARKETS,
+    description1: `Bridal and formal wear fabrics require exceptional hand, drape, and visual brilliance. INTERLOOMS specializes in sourcing premium substrates — lace, tulle, satin, chiffon, organza, mikado, and embroidered fabrics — for bridal couture houses, formal dress manufacturers, and boutique fashion designers.`,
+    description2: `We work with specialized European and Turkish weavers and embroiderers to source exclusive qualities, facilitate sample development, and manage small-to-medium production volumes with the attention to detail that luxury bridal and occasion wear demands.`,
+  },
+  "recycling-machinery": {
+    tagline: "Textile Machinery Brokerage",
+    role: "Machinery Trading & Advisory",
+    origin: DEFAULT_MARKETS,
+    description1: `Used and refurbished textile recycling machinery — garnetting machines, fiber openers, bale presses, and shredding lines — requires expert evaluation and transparent brokerage. INTERLOOMS facilitates the buying and selling of pre-owned machinery between mills, recycling facilities, and machinery dealers globally.`,
+    description2: `Our team conducts technical due diligence, supports factory inspections, and coordinates international shipping, installation supervision, and commissioning support for purchased machinery. We help buyers source cost-effective equipment and sellers achieve fair market value for their assets.`,
+  },
+};
+
+const content = CONTENT[category.slug] ?? {
+  tagline: "Expert Sourcing & Global Trade",
+  role: "Trading & Technical Brokerage",
+  origin: DEFAULT_MARKETS,
+  description1: `INTERLOOMS provides comprehensive brokerage and sourcing services for ${category.title}, connecting buyers and suppliers through transparent, technically informed trade relationships.`,
+  description2: `With deep market knowledge and a global network of verified partners, we ensure quality, consistency, and competitive pricing across every transaction in this sector.`,
+};
+---
+
+<Layout
+  title={`${category.title} | INTERLOOMS`}
+  description={`INTERLOOMS — ${content.tagline}. Expert consultancy & brokerage for ${category.title}.`}
+  bodyClass="wp-singular project-template-default single single-project"
+  startLocation="projects"
+>
+  <main
+    data-router-view="project"
+    data-header-classes="fill-black t-black"
+    data-start-location="projects"
+    data-project-images={JSON.stringify(projectImages)}
+    data-project-colors={JSON.stringify(projectColors)}
+  >
+    <div class="relative pt-7 pt-10@sm pt-12@md bg-cream overflow-hidden">
+      <article class="project">
+
+        <!-- Header -->
+        <header class="project-header | js-project-header">
+          <div class="view-all-btn-container | js-view-all-btn-container">
+            <a href="/fields/" class="view-all-btn | js-view-all-btn">
+              <div class="view-all-btn__border" animate-from="scale: 0, opacity: 0, duration: 2.2, ease: 'expo.inOut'"></div>
+              <div class="view-all-btn__bg absolute fill"></div>
+              <div class="absolute fill d-flex justify-center items-center flex-column">
+                <div class="view-all-btn__text overflow-hidden">
+                  <span animate-from="transformOrigin: '0 50%', rotate: 20, yPercent: 110, duration: 2.2, ease: 'expo.inOut'" class="d-block">View</span>
+                </div>
+                <div class="view-all-btn__text overflow-hidden">
+                  <span animate-from="transformOrigin: '0 50%', rotate: 20, yPercent: 110, duration: 2.2, ease: 'expo.inOut'" class="d-block">All Fields</span>
+                </div>
+              </div>
+            </a>
+          </div>
+
+          <div class="relative d-flex flex-column items-center">
+            <div class="project-header__subtitle mb-1 mb-0@sm t-500 t-10 t-12@sm t-14@lg t-ls-0.16 t-lh-1 t-black t-uppercase overflow-hidden | js-project-header-subtitle">
+              <span class="d-block js-has-scroll-animation">Field 0{categoryIndex + 1}</span>
+            </div>
+            <h1 class="project-header__title h1 js-project-title t-center overflow-hidden mt-0 mb-1.5 mb-0@sm t-lh-1 t-lh-1.3@sm | js-has-scroll-animation">
+              {category.title}
+            </h1>
+            <div class="project-header__button js-projects-btn">
+              <a data-transition="projectToProject" data-hover="nextProject" class="btn t-black js-next-project | js-btn btn--outline" href={`/projects/${nextCategory.slug}/`}>
+                <div class="overflow-hidden relative z-10">
+                  <div class="btn__text | js-btn-text"><span class="d-block">Next Field</span></div>
+                  <div class="btn__text btn__text--hover | js-btn-hover-text"><span class="d-block">Next Field</span></div>
+                </div>
+                <div class="btn__outline absolute fill">
+                  <div class="btn__outline__br absolute fill | js-btn-outline-br"><div class="absolute fill | js-btn-outline-inner"></div></div>
+                  <div class="btn__outline__bl absolute fill | js-btn-outline-bl"><div class="absolute fill | js-btn-outline-inner"></div></div>
+                  <div class="btn__outline__tl absolute fill | js-btn-outline-tl"><div class="absolute fill | js-btn-outline-inner"></div></div>
+                  <div class="btn__outline__tr absolute fill | js-btn-outline-tr"><div class="absolute fill | js-btn-outline-inner"></div></div>
+                </div>
+                <div class="btn__hover | js-btn-hover" style="opacity: 0;"><div></div></div>
+              </a>
+            </div>
+          </div>
+
+          <div class="project-header__info d-flex justify-between t-500 t-uppercase mb-0.6 mb-1 mx-0.6 mx-0.5@sm mx-1.25@md overflow-hidden | js-project-info">
+            <span>INTERLOOMS</span>
+            <span class="t-center">×</span>
+            <span class="t-right">{category.title}</span>
+          </div>
+
+          <!-- Carousel -->
+          <div class="carousel-wrapper relative d-flex justify-between z-1 | js-carousel-wrapper">
+            <div class="carousel-crop">
+              <div class="js-carousel-crop-left"></div>
+              <div class="js-carousel-crop-right"></div>
+            </div>
+            <div class="carousel">
+              <div class="carousel__inner overflow-hidden | js-has-scroll-animation">
+                <div class="carousel__item-wrapper | js-carousel-item-wrapper">
+                  <div class="carousel__item user-select-none | js-carousel-item js-has-scroll-animation">
+                    <div class="carousel__item-inner overflow-hidden | js-carousel-img">
+                      <img width="850" height="1080" src={img1} class="d-none d-block@smup" alt={category.title} decoding="async" fetchpriority="high" onerror="this.onerror=null; this.src='/apple-touch-icon.png';" />
+                      <img width="752" height="560" src={img1} class="d-block d-none@smup" alt={category.title} decoding="async" onerror="this.onerror=null; this.src='/apple-touch-icon.png';" />
+                    </div>
+                  </div>
+                  <div class="carousel__item user-select-none | js-carousel-item js-has-scroll-animation">
+                    <div class="carousel__item-inner overflow-hidden | js-carousel-img">
+                      <img width="850" height="1080" src={img2} class="d-none d-block@smup" alt={category.title} decoding="async" onerror="this.onerror=null; this.src='/apple-touch-icon.png';" />
+                      <img width="752" height="560" src={img2} class="d-block d-none@smup" alt={category.title} decoding="async" onerror="this.onerror=null; this.src='/apple-touch-icon.png';" />
+                    </div>
+                  </div>
+                  <div class="carousel__item user-select-none | js-carousel-item js-has-scroll-animation">
+                    <div class="carousel__item-inner overflow-hidden | js-carousel-img">
+                      <img width="850" height="1080" src={img3} class="d-none d-block@smup" alt={category.title} decoding="async" onerror="this.onerror=null; this.src='/apple-touch-icon.png';" />
+                      <img width="752" height="560" src={img3} class="d-block d-none@smup" alt={category.title} decoding="async" onerror="this.onerror=null; this.src='/apple-touch-icon.png';" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="carousel__dots | js-carousel-dots">
+              <span class="js-carousel-dot"></span>
+              <span class="js-carousel-dot"></span>
+              <span class="js-carousel-dot"></span>
+            </div>
+          </div>
+        </header>
+
+        <!-- Key Details Block -->
+        <div class="project-block project-block--details details">
+          <div class="divider relative overflow-hidden" animate-from="xPercent: -100, duration: 1.2, ease: 'expo.out'">
+            <div animate-from="xPercent: 100, duration: 1.2, ease: 'expo.out'"></div>
+          </div>
+          <div class="details__row d-flex justify-between">
+            <div class="t-uppercase mt-1 t-600 t-10 t-12@sm t-base@md" animate-from="preset: 'splitTextRotateIn', rotate: 30">Firm</div>
+            <div class="t-26 t-45@sm t-60@md t-serif py-1 py-1.5@sm py-2@md" animate-from="preset: 'splitTextRotateIn', rotate: 30">INTERLOOMS</div>
+          </div>
+          <div class="divider relative overflow-hidden" animate-from="xPercent: -100, duration: 1.2, ease: 'expo.out'">
+            <div animate-from="xPercent: 100, duration: 1.2, ease: 'expo.out'"></div>
+          </div>
+          <div class="details__row d-flex justify-between">
+            <div class="t-uppercase mt-1 t-600 t-10 t-12@sm t-base@md" animate-from="preset: 'splitTextRotateIn', rotate: 30">Service</div>
+            <div class="t-26 t-45@sm t-60@md t-serif py-1 py-1.5@sm py-2@md" animate-from="preset: 'splitTextRotateIn', rotate: 30">{content.role}</div>
+          </div>
+          <div class="divider relative overflow-hidden" animate-from="xPercent: -100, duration: 1.2, ease: 'expo.out'">
+            <div animate-from="xPercent: 100, duration: 1.2, ease: 'expo.out'"></div>
+          </div>
+          <div class="details__row d-flex justify-between">
+            <div class="t-uppercase mt-1 t-600 t-10 t-12@sm t-base@md" animate-from="preset: 'splitTextRotateIn', rotate: 30">Markets</div>
+            <div class="t-26 t-45@sm t-60@md t-serif py-1 py-1.5@sm py-2@md" animate-from="preset: 'splitTextRotateIn', rotate: 30">{content.origin}</div>
+          </div>
+        </div>
+
+        <!-- Description Block -->
+        <div class="project-block project-block--text">
+          <div>
+            <h2 class="h2--project w-1/1 w-9/12@md w-8/12@md mt-0" animate-from="preset: 'splitTextRotateIn', rotate: 15, y: '120%', stagger: '.2', scrollTrigger: { start: 'top top+=75%' }">
+              {content.tagline}.
+            </h2>
+          </div>
+          <div class="grid">
+            <div class="offset-2/12@sm offset-5/12@md w-1/1 w-10/12@sm w-6/12@md">
+              <div class="grid flex-no-wrap@md flex-no-shrink gap-2@md">
+                <div class="trim-vertical@md w-1/2@md" animate-from="preset: 'splitTextRotateIn', children: 'p', rotate: 7, scrollTrigger: { start: 'top top+=75%' }">
+                  <p>{content.description1}</p>
+                </div>
+                <div class="trim-vertical@md w-1/2@md" animate-from="preset: 'splitTextRotateIn', children: 'p', rotate: 7, scrollTrigger: { start: 'top top+=75%' }">
+                  <p>{content.description2}</p>
+                  <p>
+                    <a href="/get-in-touch/" class="t-underline">Contact us</a> to discuss your sourcing requirements or request a product specification.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Featured Image (Contained & Centered) -->
+        <div class="project-block d-flex justify-center items-center py-2 px-1" animate-from="preset: 'fadeUp'">
+          <div style="max-width: 1100px; width: 100%; margin: 0 auto; text-align: center;">
+            <img decoding="async" src={img1} style="max-width: 100%; height: auto; display: inline-block; margin: 0 auto; object-fit: contain;" alt={category.title} onerror="this.onerror=null; this.src='/apple-touch-icon.png';" />
+          </div>
+        </div>
+
+        <!-- Staggered Images -->
+        <div class="project-block project-block--staggered-images staggered-images">
+          <div class="d-flex justify-between flex-wrap flex-no-wrap@sm">
+            <div class="w-8/12 w-5/12@md pr-2.75@sm pr-0@md mb-2.75 mb-0@sm" animate-mq="sm" animate-from="preset: 'parallax', speed: 0.5">
+              <div class="d-none d-block@sm staggered-images__spacer"></div>
+              <div>
+                <div class="relative" animate-from="preset: 'fadeUp'">
+                  <img decoding="async" width="560" height="765" src={img2} class="staggered-images__img" alt={category.title} onerror="this.onerror=null; this.src='/apple-touch-icon.png';" />
+                </div>
+              </div>
+            </div>
+            <div class="w-8/12 w-5/12@md ml-auto pl-2.75@sm pl-0@md" animate-mq="sm" animate-from="preset: 'parallax', speed: 0.1">
+              <div animate-mq="maxSm" animate-from="preset: 'parallax', speed: 0.7">
+                <div class="relative" animate-from="preset: 'fadeUp'">
+                  <img decoding="async" width="560" height="765" src={img3} class="staggered-images__img" alt={category.title} onerror="this.onerror=null; this.src='/apple-touch-icon.png';" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Next Field Footer -->
+      <header class="project-header | js-project-header">
+        <div class="view-all-btn-container | js-view-all-btn-container">
+          <a href="/fields/" class="view-all-btn | js-view-all-btn">
+            <div class="view-all-btn__border" animate-from="scale: 0, opacity: 0, duration: 2.2, ease: 'expo.inOut'"></div>
+            <div class="view-all-btn__bg absolute fill"></div>
+            <div class="absolute fill d-flex justify-center items-center flex-column">
+              <div class="view-all-btn__text overflow-hidden">
+                <span animate-from="transformOrigin: '0 50%', rotate: 20, yPercent: 110, duration: 2.2, ease: 'expo.inOut'" class="d-block">View</span>
+              </div>
+              <div class="view-all-btn__text overflow-hidden">
+                <span animate-from="transformOrigin: '0 50%', rotate: 20, yPercent: 110, duration: 2.2, ease: 'expo.inOut'" class="d-block">All Fields</span>
+              </div>
+            </div>
+          </a>
+        </div>
+        <div class="relative d-flex flex-column items-center">
+          <div class="project-header__subtitle mb-1 mb-0@sm t-500 t-10 t-12@sm t-14@lg t-ls-0.16 t-lh-1 t-black t-uppercase overflow-hidden | js-project-header-subtitle">
+            <span class="d-block js-has-scroll-animation" animate-from="yPercent: 120, rotate: 10, transformOrigin: 'center left', duration: 2, ease: 'expo.out', scrollTrigger: { start: 'top top+=70%' }">Next Field</span>
+          </div>
+          <h2 class="project-header__title h1 js-project-title t-center overflow-hidden mt-0 mb-1.5 mb-0@sm t-lh-1 t-lh-1.3@sm | js-has-scroll-animation" animate-from="preset: 'splitCharsRotateIn', scrollTrigger: { start: 'top top+=90%' }">
+            {nextCategory.title}
+          </h2>
+          <div class="project-header__button js-projects-btn">
+            <a data-transition="projectToProject" data-hover="nextProject" class="btn t-black js-next-project | js-btn btn--outline" href={`/projects/${nextCategory.slug}/`}>
+              <div class="overflow-hidden relative z-10">
+                <div class="btn__text | js-btn-text"><span class="d-block">View Field</span></div>
+                <div class="btn__text btn__text--hover | js-btn-hover-text"><span class="d-block">View Field</span></div>
+              </div>
+              <div class="btn__outline absolute fill">
+                <div class="btn__outline__br absolute fill | js-btn-outline-br"><div class="absolute fill | js-btn-outline-inner"></div></div>
+                <div class="btn__outline__bl absolute fill | js-btn-outline-bl"><div class="absolute fill | js-btn-outline-inner"></div></div>
+                <div class="btn__outline__tl absolute fill | js-btn-outline-tl"><div class="absolute fill | js-btn-outline-inner"></div></div>
+                <div class="btn__outline__tr absolute fill | js-btn-outline-tr"><div class="absolute fill | js-btn-outline-inner"></div></div>
+              </div>
+              <div class="btn__hover | js-btn-hover" style="opacity: 0;"><div></div></div>
+            </a>
+          </div>
+        </div>
+        <div class="project-header__info d-flex justify-between t-500 t-uppercase mb-0.6 mb-1 mx-0.6 mx-0.5@sm mx-1.25@md overflow-hidden | js-project-info">
+          <span>INTERLOOMS</span>
+          <span class="t-center">×</span>
+          <span class="t-right">{nextCategory.title}</span>
+        </div>
+        <div class="carousel-wrapper relative d-flex justify-between z-1 | js-carousel-wrapper">
+          <a href={`/projects/${nextCategory.slug}/`} class="absolute fill d-block z-10 | js-next-project" data-transition="projectToProject"><span class="sr">Go to next field</span></a>
+          <div class="carousel-crop">
+            <div class="js-carousel-crop-left"></div>
+            <div class="js-carousel-crop-right"></div>
+          </div>
+          <div class="carousel">
+            <div class="carousel__inner overflow-hidden | js-has-scroll-animation" animate-mq="maxSm" animate-from="yPercent: 20, duration: 2, ease: 'expo.out', scrollTrigger: { start: 'top top+=90%' }">
+              <div class="carousel__item-wrapper | js-carousel-item-wrapper">
+                <div class="carousel__item user-select-none | js-carousel-item js-has-scroll-animation" animate-mq="sm" animate-from="yPercent: 40, rotate: 20, transformOrigin: 'bottom left', duration: 2, ease: 'expo.out'">
+                  <div class="carousel__item-inner overflow-hidden | js-carousel-img">
+                    <img width="850" height="1080" src={nextImg1} class="d-none d-block@smup" alt={nextCategory.title} decoding="async" onerror="this.onerror=null; this.src='/apple-touch-icon.png';" />
+                  </div>
+                </div>
+                <div class="carousel__item user-select-none | js-carousel-item js-has-scroll-animation" animate-mq="sm" animate-from="yPercent: 40, rotate: 20, transformOrigin: 'bottom left', duration: 2, ease: 'expo.out'">
+                  <div class="carousel__item-inner overflow-hidden | js-carousel-img">
+                    <img width="850" height="1080" src={nextImg2} class="d-none d-block@smup" alt={nextCategory.title} decoding="async" onerror="this.onerror=null; this.src='/apple-touch-icon.png';" />
+                  </div>
+                </div>
+                <div class="carousel__item user-select-none | js-carousel-item js-has-scroll-animation" animate-mq="sm" animate-from="yPercent: 40, rotate: 20, transformOrigin: 'bottom left', duration: 2, ease: 'expo.out'">
+                  <div class="carousel__item-inner overflow-hidden | js-carousel-img">
+                    <img width="850" height="1080" src={nextImg1} class="d-none d-block@smup" alt={nextCategory.title} decoding="async" onerror="this.onerror=null; this.src='/apple-touch-icon.png';" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+
+    </div>
+  </main>
+</Layout>
+
+<script is:inline>
+  (function() {
+    const main = document.querySelector('[data-router-view="project"]');
+    if (!main) return;
+    if (window.globalData) {
+      window.globalData.startLocation = main.dataset.startLocation || 'projects';
+      window.globalData.projectImages = JSON.parse(main.dataset.projectImages || '[]');
+      window.globalData.projectColors = JSON.parse(main.dataset.projectColors || '[]');
+    }
+  })();
+</script>

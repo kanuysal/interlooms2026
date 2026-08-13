@@ -1,0 +1,84 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { CATEGORIES, buildProjectImages, buildProjectColors } from '../data/categories';
+
+const projectImages = buildProjectImages();
+const projectColors = buildProjectColors();
+---
+
+<Layout
+  title="INTERLOOMS | Global Textile Consultancy & Brokerage"
+  description="INTERLOOMS provides expert consultancy and brokerage for PET Chips, PES Filament, Recycled Cotton Fibers, Hometextile, Garment Fabrics, Wedding Dresses and Recycling Machinery."
+  bodyClass="home"
+  startLocation="home"
+>
+  <main
+    data-router-view="home"
+    data-iswebgl
+    data-header-classes="fill-cream t-cream"
+    data-start-location="home"
+    data-project-images={JSON.stringify(projectImages)}
+    data-project-colors={JSON.stringify(projectColors)}
+  >
+    <div class="home-landing | js-home-landing">
+      <div class="home-landing__title absolute center-xy w-1/1 px-1@xs">
+        <div class="d-flex items-center flex-column | js-home-css3d">
+          <h1 class="home-landing__heading t-serif t-64 t-120@sm t-180@lg t-300 t-ls-0.02 mb-0.75 mb-2.5@sm mb-2@lg t-lh-1.125 t-lh-1@sm t-cream t-nowrap@lg t-center | js-home-title">
+            <span>Connecting<br class="d-none@md"> the world's<br class="d-none@md"> textile trade.</span>
+          </h1>
+          <div>
+            <a
+              data-hover="homeToProjects"
+              class="btn js-home-btn t-cream | js-btn btn--fill"
+              href="/projects/"
+            >
+              <div class="overflow-hidden relative z-10">
+                <div class="btn__text | js-btn-text"><span class="d-block">View Expertise Fields</span></div>
+                <div class="btn__text btn__text--hover | js-btn-hover-text"><span class="d-block">View Expertise Fields</span></div>
+              </div>
+              <div class="btn__outline absolute fill">
+                <div class="btn__outline__br absolute fill | js-btn-outline-br"><div class="absolute fill | js-btn-outline-inner"></div></div>
+                <div class="btn__outline__bl absolute fill | js-btn-outline-bl"><div class="absolute fill | js-btn-outline-inner"></div></div>
+                <div class="btn__outline__tl absolute fill | js-btn-outline-tl"><div class="absolute fill | js-btn-outline-inner"></div></div>
+                <div class="btn__outline__tr absolute fill | js-btn-outline-tr"><div class="absolute fill | js-btn-outline-inner"></div></div>
+              </div>
+              <div class="btn__bg | js-btn-bg"><div></div></div>
+              <div class="btn__hover | js-btn-hover" style="opacity: 0;"><div></div></div>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="home-landing__container d-flex justify-center">
+        <div class="w-1/2@sm d-none d-block@sm pr-4">
+          <div class="home-landing__copy d-flex flex-column flex-grow justify-between h-1/1">
+            <h2 class="t-sans t-400 t-24 t-32@lg t-ls-0.4 t-lh-1.15 t-cream h-1/1 mt-0 | js-home-subtitle">
+              Textile consultancy &amp; brokerage across 10 specialist sectors.
+            </h2>
+            <div class="t-10 t-cream t-lh-1 t-ls-0.1 t-uppercase | js-home-small-copy">INTERLOOMS &copy;{new Date().getFullYear()}</div>
+          </div>
+        </div>
+        <div class="w-1/1 w-1/2@sm pl-8@lg d-flex items-end justify-between pr-2@sm">
+          <div class="home-landing__copy">
+            <h3 class="t-11 t-14@sm t-16@lg t-cream t-600 t-uppercase t-ls-0.06 mb-1 t-lh-1 t-center t-left@sm | js-home-copy-title">
+              Global Sourcing. Expert Guidance.
+            </h3>
+            <p class="t-cream mb-0 t-center t-left@sm | js-home-copy">INTERLOOMS is a specialist textile consultancy and brokerage firm. We connect raw material suppliers, yarn spinning mills, recycled fiber processors, and garment manufacturers across 10 core sectors worldwide.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</Layout>
+
+<script is:inline>
+  // Pass globalData to themebee9.js from data attributes
+  (function() {
+    const main = document.querySelector('[data-router-view="home"]');
+    if (!main) return;
+    if (window.globalData) {
+      window.globalData.startLocation = main.dataset.startLocation || 'home';
+      window.globalData.projectImages = JSON.parse(main.dataset.projectImages || '[]');
+      window.globalData.projectColors = JSON.parse(main.dataset.projectColors || '[]');
+    }
+  })();
+</script>

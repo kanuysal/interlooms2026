@@ -1,0 +1,35 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { buildProjectImages, buildProjectColors } from '../../data/categories';
+
+const projectImages = buildProjectImages();
+const projectColors = buildProjectColors();
+---
+
+<Layout
+  title="Privacy Policy | INTERLOOMS"
+  description="INTERLOOMS Privacy Policy."
+  bodyClass="wp-singular page"
+  startLocation="privacy"
+>
+  <main
+    data-router-view="privacy"
+    data-iswebgl
+    data-header-classes="fill-cream t-cream t-black@md"
+    data-start-location="privacy"
+    data-project-images={JSON.stringify(projectImages)}
+    data-project-colors={JSON.stringify(projectColors)}
+  >
+    <div class="privacy pt-7 pt-10@sm pt-12@md bg-cream overflow-hidden">
+      <article class="px-2 px-4@sm max-w-700 mx-auto py-4">
+        <h1 class="t-serif t-48 t-70@sm t-lh-1 mb-2">Privacy Policy</h1>
+        <p class="t-lh-1.6 color-muted">Last updated: August 2026</p>
+        <div class="content t-lh-1.6 my-2">
+          <p>INTERLOOMS collects minimal personal information strictly necessary to process your business inquiries. We do not sell or distribute your data to third parties.</p>
+          <p>This website uses essential session cookies for layout transition performance and WebGL rendering choices.</p>
+        </div>
+        <p><a href="/get-in-touch/" class="btn btn--outline t-black">Contact Us</a></p>
+      </article>
+    </div>
+  </main>
+</Layout>

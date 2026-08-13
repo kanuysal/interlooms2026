@@ -1,0 +1,360 @@
+---
+/**
+ * INTERLOOMS — Layout.astro
+ * Global Textile Consultancy & Brokerage
+ */
+import { buildProjectImages, buildProjectColors } from '../data/categories';
+
+interface Props {
+  title?: string;
+  description?: string;
+  bodyClass?: string;
+  startLocation?: string;
+  projectImages?: string[][];
+  projectColors?: number[][];
+}
+
+const {
+  title = "INTERLOOMS | Global Textile Consultancy & Brokerage",
+  description = "INTERLOOMS provides expert consultancy and brokerage for PET Chips, PES Filament, Recycled Cotton Fibers, Hometextile, Garment Fabrics, Wedding Dresses and Recycling Machinery.",
+  bodyClass = "",
+  startLocation = "home",
+  projectImages = buildProjectImages(),
+  projectColors = buildProjectColors(),
+} = Astro.props;
+
+const siteUrl = "https://interlooms.com";
+const canonicalURL = new URL(Astro.url.pathname, siteUrl).href;
+const ogImageUrl = `${siteUrl}/og-image-1200.png`;
+---
+
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0">
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QPG8ZM5PKS"></script>
+<script is:inline>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-QPG8ZM5PKS');
+</script>
+
+<title>{title}</title>
+<link rel="canonical" href={canonicalURL} />
+
+<!-- Favicons -->
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.json" ignore-error>
+<meta name="theme-color" content="#1a1915">
+
+<!-- Font Preloads -->
+<link rel="preload" as="font" type="font/woff2" crossorigin href="/Prisma.woff2">
+<link rel="preload" as="font" crossorigin href="/assets/fonts/alliance-regular.woff2">
+<link rel="preload" as="font" crossorigin href="/assets/fonts/alliance-semibold.woff2">
+<link rel="preload" as="font" crossorigin href="/assets/fonts/alliance-medium.woff2">
+<link rel="preload" as="font" crossorigin href="/assets/fonts/Roslindale-DisplayCondensedLight.woff2">
+
+<!-- SEO Meta Tags -->
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+<meta name="description" content={description}>
+<meta name="keywords" content="INTERLOOMS, textile brokerage, textile consultancy, PET chips, PES filament, recycled cotton, OE yarns, home textiles, garment fabrics, wedding dresses, recycling machinery, Spain, Turkey, Italy">
+<meta name="author" content="INTERLOOMS">
+
+<!-- Open Graph / Social Media -->
+<meta property="og:type" content="website">
+<meta property="og:url" content={canonicalURL}>
+<meta property="og:title" content={title}>
+<meta property="og:description" content={description}>
+<meta property="og:site_name" content="INTERLOOMS">
+<meta property="og:image" content={ogImageUrl}>
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:alt" content="INTERLOOMS — Global Textile Consultancy & Brokerage">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:url" content={canonicalURL}>
+<meta name="twitter:title" content={title}>
+<meta name="twitter:description" content={description}>
+<meta name="twitter:image" content={ogImageUrl}>
+
+<style>img:is([sizes=auto i],[sizes^="auto," i]){contain-intrinsic-size:3000px 1500px}</style>
+<link rel="stylesheet" href="/assets/css/editor.css" media="all">
+<link rel="stylesheet" href="/assets/css/stylefd85.css" media="all">
+
+<style>
+@font-face {
+  font-family: 'Prisma';
+  src: url('/Prisma.woff2') format('woff2'),
+       url('/Prisma.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Global Link Resets */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+a:hover, a:visited, a:focus, a:active {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Header Mix Blend Mode Difference */
+.header {
+  mix-blend-mode: difference !important;
+  color: #ffffff !important;
+}
+
+.header a,
+.header button,
+.header .nav__link,
+.header .btn,
+.header .header__logo,
+.header .header__logo-text,
+.header .link__text,
+.header .btn__text,
+.header .menu-toggle__icon {
+  color: #ffffff !important;
+  text-decoration: none !important;
+  fill: #ffffff !important;
+}
+
+.header a:hover,
+.header a:visited,
+.header a:focus {
+  color: #ffffff !important;
+  text-decoration: none !important;
+}
+
+.header__logo {
+  width: auto !important;
+  max-width: none !important;
+  text-decoration: none !important;
+  color: #ffffff !important;
+  mix-blend-mode: difference;
+  display: inline-flex;
+  align-items: center;
+  outline: none;
+}
+
+.header__logo-text {
+  font-family: 'Prisma', 'Alliance', sans-serif;
+  font-size: 1.45rem;
+  letter-spacing: 0.14em;
+  line-height: 1;
+  text-transform: uppercase;
+  color: #ffffff !important;
+  text-decoration: none !important;
+  display: inline-block;
+  mix-blend-mode: difference;
+}
+
+/* Hide WebGL canvas on single project views */
+body.single-project .gl-canvas,
+[data-router-view="project"] ~ .gl-canvas {
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+.site-loader {position: fixed;top: 0;left: 0;width: 100%;height: 100%;z-index: 10200;color: #d1c3b2;background-color: #f5efeb;}.home .site-loader {background-color: #8b8986;}.site-loader__progress {height: 10px;bottom: 0;left: 0;width: 100%;position: fixed;background-color: #f1b497;}
+.site-loader__heading-text {
+  font-family: 'Prisma', 'Alliance', sans-serif;
+  font-size: 2.2rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #8b8986;
+  filter: drop-shadow(0 0 8px rgba(167, 167, 167, 0.35));
+  animation: fadeIn 2s ease-in-out infinite;
+}
+@media (min-width: 768px) {
+  .site-loader__heading-text {
+    font-size: 4.2rem;
+    letter-spacing: 0.22em;
+  }
+}
+.home .site-loader__heading-text {
+  color: #f5efeb;
+}
+@keyframes fadeIn {0% {opacity: 0.2;}50% {opacity: 1;}100% {opacity: 0.2;}}@keyframes fadeOut {to {opacity: 0;}}
+</style>
+</head>
+<body class={`wp-embed-responsive ${bodyClass}`}>
+
+<!-- Cookie Notice -->
+<div role="dialog" aria-modal="false" aria-labelledby="cookie-notice-title" aria-describedby="cookie-notice-body" class="cookie-notice fixed | js-cookie-notice">
+  <div class="cookie-notice__inner">
+    <div class="d-flex flex-column flex-row@xs items-center">
+      <div class="flex-grow pr-1 mb-1 mb-0@xs">
+        <div class="sr" id="cookie-notice-title">Cookie consent</div>
+        <div id="cookie-notice-body" class="cookie-notice__body t-400">
+          This website uses cookies. <a href="/privacy/" class="cookie-notice__link t-600" target="_blank" rel="noreferrer noopener">Learn more</a>
+        </div>
+      </div>
+      <div class="flex-no-shrink d-flex">
+        <button class="btn js-cookie-notice-accept t-cream | js-btn btn--fill">
+          <div class="overflow-hidden relative z-10">
+            <div class="btn__text | js-btn-text"><span class="d-block">Accept</span></div>
+            <div class="btn__text btn__text--hover | js-btn-hover-text"><span class="d-block">Accept</span></div>
+          </div>
+          <div class="btn__outline absolute fill">
+            <div class="btn__outline__br absolute fill | js-btn-outline-br"><div class="absolute fill | js-btn-outline-inner"></div></div>
+            <div class="btn__outline__bl absolute fill | js-btn-outline-bl"><div class="absolute fill | js-btn-outline-inner"></div></div>
+            <div class="btn__outline__tl absolute fill | js-btn-outline-tl"><div class="absolute fill | js-btn-outline-inner"></div></div>
+            <div class="btn__outline__tr absolute fill | js-btn-outline-tr"><div class="absolute fill | js-btn-outline-inner"></div></div>
+          </div>
+          <div class="btn__bg | js-btn-bg"><div></div></div>
+          <div class="btn__hover | js-btn-hover" style="opacity: 0;"><div></div></div>
+        </button>
+        <button class="btn js-cookie-notice-reject t-cream ml-1 | js-btn btn--fill">
+          <div class="overflow-hidden relative z-10">
+            <div class="btn__text | js-btn-text"><span class="d-block">Reject</span></div>
+            <div class="btn__text btn__text--hover | js-btn-hover-text"><span class="d-block">Reject</span></div>
+          </div>
+          <div class="btn__outline absolute fill">
+            <div class="btn__outline__br absolute fill | js-btn-outline-br"><div class="absolute fill | js-btn-outline-inner"></div></div>
+            <div class="btn__outline__bl absolute fill | js-btn-outline-bl"><div class="absolute fill | js-btn-outline-inner"></div></div>
+            <div class="btn__outline__tl absolute fill | js-btn-outline-tl"><div class="absolute fill | js-btn-outline-inner"></div></div>
+            <div class="btn__outline__tr absolute fill | js-btn-outline-tr"><div class="absolute fill | js-btn-outline-inner"></div></div>
+          </div>
+          <div class="btn__bg | js-btn-bg"><div></div></div>
+          <div class="btn__hover | js-btn-hover" style="opacity: 0;"><div></div></div>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Site Loader - INTERLOOMS text in Prisma font -->
+<div class="site-loader d-flex flex-column items-center justify-center | js-site-loader">
+  <div class="d-flex items-center justify-center site-loader__heading">
+    <span class="site-loader__heading-text">INTERLOOMS</span>
+  </div>
+  <div class="site-loader__progress | js-site-loader-progress"></div>
+</div>
+
+<!-- Header -->
+<header class="header fixed z-1000 d-flex flex-column justify-between items-center fill-cream t-cream t-black@md | js-header" role="banner">
+  <div id="mobile-menu" class="nav-mobile fixed fill z-1000 bg-cream t-black d-flex flex-column justify-between | js-nav-mobile">
+    <ul class="nav-mobile__list list-unstyled mb-0" role="menu">
+      <li><a class="nav-mobile__item" href="/about/">About us</a></li>
+      <li><a class="nav-mobile__item" href="/get-in-touch/">Contact</a></li>
+      <li><a class="nav-mobile__item" href="/fields/">Fields</a></li>
+    </ul>
+    <div class="nav-mobile__footer t-white">
+      <div>
+        <div class="d-flex socials">
+          <a href="https://www.linkedin.com/company/interlooms/" class="socials__link d-inline-block" rel="noopener" target="_blank">
+            <div class="sr">LinkedIn</div>
+            <div class="icon icon--social icon--dark js-social-icon">
+              <svg class="icon__svg">
+                <circle/>
+                <g class="icon__svg-icon">
+                  <svg class="fill-white">
+                    <use xlink:href="/assets/images/svgspritee053.svg#linkedin"></use>
+                  </svg>
+                </g>
+              </svg>
+            </div>
+          </a>
+        </div>
+      </div>
+      <div>
+        <ul class="nav-mobile__footer__links list-unstyled d-flex">
+          <li class="ml-1.5"><a href="/privacy/">Privacy</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="d-flex justify-between w-1/1">
+    <a href="/" aria-label="INTERLOOMS Homepage" class="header__logo d-flex items-center | js-nav-link js-header-logo">
+      <span class="sr">INTERLOOMS</span>
+      <!-- INTERLOOMS text logo styled with Prisma font -->
+      <span class="header__logo-text">INTERLOOMS</span>
+    </a>
+
+    <nav class="nav d-flex | js-nav" role="navigation" aria-label="Main navigation">
+      <ul class="nav__list mb-0" role="menubar" aria-label="Main navigation">
+        <li class="nav__item | js-nav-item" role="none">
+          <a href="/about/" class="nav__link link | js-nav-link js-header-color" role="menuitem">
+            <div>
+              <span class="link__text">About us</span>
+              <span class="link__text link__text--hover">About us</span>
+            </div>
+            <div class="nav-link-marker">
+              <div class="nav-link-marker__inner | js-marker-inner">
+                <div class="nav-link-marker__dot"></div>
+                <div class="nav-link-marker__fill"></div>
+              </div>
+            </div>
+          </a>
+        </li>
+        <li class="nav__item | js-nav-item" role="none">
+          <a href="/get-in-touch/" class="nav__link link | js-nav-link js-header-color" role="menuitem">
+            <div>
+              <span class="link__text">Contact</span>
+              <span class="link__text link__text--hover">Contact</span>
+            </div>
+            <div class="nav-link-marker">
+              <div class="nav-link-marker__inner | js-marker-inner">
+                <div class="nav-link-marker__dot"></div>
+                <div class="nav-link-marker__fill"></div>
+              </div>
+            </div>
+          </a>
+        </li>
+        <li class="nav__item nav__item--cta | js-nav-item">
+          <a data-hover="isHeader" class="btn js-nav-link | js-nav-btn btn--outline" href="/fields/">
+            <div class="overflow-hidden relative z-10">
+              <div class="btn__text | js-btn-text js-header-color"><span class="d-block">Expertise Fields</span></div>
+              <div class="btn__text btn__text--hover | js-btn-hover-text"><span class="d-block">Expertise Fields</span></div>
+            </div>
+            <div class="btn__outline absolute fill">
+              <div class="btn__outline__br absolute fill | js-btn-outline-br"><div class="absolute fill | js-btn-outline-inner"></div></div>
+              <div class="btn__outline__bl absolute fill | js-btn-outline-bl"><div class="absolute fill | js-btn-outline-inner"></div></div>
+              <div class="btn__outline__tl absolute fill | js-btn-outline-tl"><div class="absolute fill | js-btn-outline-inner"></div></div>
+              <div class="btn__outline__tr absolute fill | js-btn-outline-tr"><div class="absolute fill | js-btn-outline-inner"></div></div>
+            </div>
+            <div class="btn__hover | js-btn-hover" style="opacity: 0;"><div></div></div>
+          </a>
+        </li>
+      </ul>
+      <button class="icon icon--menu menu-toggle | js-menu-toggle" aria-controls="mobile-menu">
+        <svg class="icon__svg"><circle/></svg>
+        <svg class="menu-toggle__icon js-header-color" width="12" height="10" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="12" height="1.57895"/>
+          <rect y="4.21045" width="12" height="1.57895"/>
+          <rect y="4.21045" width="12" height="1.57895"/>
+          <rect y="8.4209" width="12" height="1.57895"/>
+        </svg>
+      </button>
+    </nav>
+  </div>
+</header>
+
+<div class="transition-header | js-transition-header"></div>
+<div class="simple-transition | js-simple-transition"></div>
+
+<div data-router-wrapper asscroll-container>
+  <slot />
+</div>
+
+<canvas class="gl-canvas"></canvas>
+
+<script is:inline set:html={`var globalData = {\n  "publicUrl": "/assets/",\n  "assetsUrl": "/assets/",\n  "startLocation": ${JSON.stringify(startLocation)},\n  "projectImages": ${JSON.stringify(projectImages)},\n  "projectColors": ${JSON.stringify(projectColors)}\n};`}></script>
+<script defer src="/assets/scripts/themebee9.js"></script>
+
+</body>
+</html>

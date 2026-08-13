@@ -1,0 +1,152 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { CATEGORIES, buildProjectImages, buildProjectColors } from '../../data/categories';
+
+const projectImages = buildProjectImages();
+const projectColors = buildProjectColors();
+---
+
+<Layout
+  title="Expertise Fields | INTERLOOMS"
+  description="Explore INTERLOOMS 10 core expertise fields across PET Chips, PES Filament, Recycled Fibers, Fabrics, Wedding Dresses, and Recycling Machinery."
+  bodyClass="archive post-type-archive post-type-archive-project"
+  startLocation="projects"
+>
+  <main
+    data-router-view="projects"
+    data-iswebgl
+    data-header-classes="fill-cream t-cream"
+    data-start-location="projects"
+    data-project-images={JSON.stringify(projectImages)}
+    data-project-colors={JSON.stringify(projectColors)}
+  >
+    <h1 class="sr">Fields & Expertise Areas</h1>
+
+    <!-- Left / Right Navigation Controls for WebGL Carousel -->
+    <div class="projects-nav d-flex justify-between overflow-hidden | js-projects-nav">
+      <button class="projects-nav__button projects-nav__button--prev | js-projects-nav-prev">
+        <div class="d-flex items-center">
+          <div class="js-projects-nav-arrow-prev">
+            <div class="icon projects-nav__arrow projects-nav__arrow--left icon--light mr-0.6 mr-1.25@lg">
+              <svg class="icon__svg">
+                <circle/>
+                <g class="icon__svg-icon">
+                  <svg>
+                    <use xlink:href="/assets/images/svgspritee053.svg#left-arrow"></use>
+                  </svg>
+                </g>
+              </svg>
+            </div>
+          </div>
+          <div class="projects-nav__title t-serif t-300 t-lh-1.3 t-ls-0.02 t-36 t-70@md d-none d-block@sm | js-projects-nav-prev-text">
+            {CATEGORIES.map(cat => (
+              <div class="project-title | js-title"><span>{cat.title}</span></div>
+            ))}
+          </div>
+          <div class="projects-nav__label t-500 t-uppercase t-10 t-ls-0.1 pl-1.25 d-none d-block@md | js-projects-nav-prev-label">Prev</div>
+        </div>
+      </button>
+
+      <button class="projects-nav__button projects-nav__button--next | js-projects-nav-next">
+        <div class="d-flex items-center">
+          <div class="projects-nav__label t-500 t-uppercase t-10 t-ls-0.1 pr-1.25 d-none d-block@md | js-projects-nav-next-label">Next</div>
+          <div class="projects-nav__title t-serif t-300 t-lh-1.3 t-ls-0.02 t-36 t-70@md d-none d-block@sm | js-projects-nav-next-text">
+            {CATEGORIES.map(cat => (
+              <div class="project-title | js-title"><span>{cat.title}</span></div>
+            ))}
+          </div>
+          <div class="js-projects-nav-arrow-next">
+            <div class="icon projects-nav__arrow projects-nav__arrow--right icon--light ml-0.6 ml-1.25@lg">
+              <svg class="icon__svg">
+                <circle/>
+                <g class="icon__svg-icon">
+                  <svg>
+                    <use xlink:href="/assets/images/svgspritee053.svg#right-arrow"></use>
+                  </svg>
+                </g>
+              </svg>
+            </div>
+          </div>
+        </div>
+      </button>
+    </div>
+
+    <!-- Toggle Overlay View -->
+    <button class="overlay-toggle d-flex flex-column items-center fixed center-x | js-overlay-toggle">
+      <div class="overlay-toggle__numbers t-500 t-8 t-10@lg t-ls-0.1 t-uppercase t-lh-1 mb-0.37 mb-0.5@sm mb-0.8@lg | js-toggle-numbers"><span></span>-10</div>
+      <div class="overlay-toggle__text t-serif t-24 t-28@sm t-36@lg t-400 t-lh-1 mb-0.37 mb-0.6@lg">
+        <div class="js-toggle-view-all">View All</div>
+        <div class="overlay-toggle__text--active t-black | js-toggle-close-all">Close All</div>
+      </div>
+      <div>
+        <div class="icon icon--small icon--light js-toggle-icon">
+          <svg class="icon__svg">
+            <circle/>
+            <g class="icon__svg-icon">
+              <svg>
+                <use xlink:href="/assets/images/svgspritee053.svg#plus"></use>
+              </svg>
+            </g>
+          </svg>
+        </div>
+      </div>
+    </button>
+
+    <!-- Main Title Display -->
+    <div class="projects-archive | js-projects-title">
+      <div class="d-flex flex-column items-center justify-center | js-projects-css3d">
+        <div class="projects-archive__subtitle t-500 t-10 t-12@sm t-14@lg t-ls-0.16 t-lh-1 t-cream t-uppercase mb-1.25 overflow-hidden | js-subtitle">
+          <span class="d-block">Expertise Fields</span>
+        </div>
+
+        <div class="projects-archive__title-container mb-1 mb-0@sm | js-projects-title-container">
+          {CATEGORIES.map(cat => (
+            <h2 class="project-title | js-title" data-url={`/projects/${cat.slug}/`}>
+              <span>{cat.title}</span>
+            </h2>
+          ))}
+          <h2 class="project-title" style="position: relative; opacity: 0">X</h2>
+        </div>
+
+        <div class="js-projects-btn">
+          <a class="btn t-cream | js-btn btn--fill" href={`/projects/${CATEGORIES[0].slug}/`}>
+            <div class="overflow-hidden relative z-10">
+              <div class="btn__text | js-btn-text"><span class="d-block">View Field</span></div>
+              <div class="btn__text btn__text--hover | js-btn-hover-text"><span class="d-block">View Field</span></div>
+            </div>
+            <div class="btn__outline absolute fill">
+              <div class="btn__outline__br absolute fill | js-btn-outline-br"><div class="absolute fill | js-btn-outline-inner"></div></div>
+              <div class="btn__outline__bl absolute fill | js-btn-outline-bl"><div class="absolute fill | js-btn-outline-inner"></div></div>
+              <div class="btn__outline__tl absolute fill | js-btn-outline-tl"><div class="absolute fill | js-btn-outline-inner"></div></div>
+              <div class="btn__outline__tr absolute fill | js-btn-outline-tr"><div class="absolute fill | js-btn-outline-inner"></div></div>
+            </div>
+            <div class="btn__bg | js-btn-bg"><div></div></div>
+            <div class="btn__hover | js-btn-hover" style="opacity: 0;"><div></div></div>
+          </a>
+        </div>
+
+        <div class="projects-archive__gradient | js-projects-archive-gradient"></div>
+      </div>
+    </div>
+
+    <!-- Full Screen List Overlay -->
+    <div class="projects-overlay | js-projects-overlay">
+      <div class="projects-overlay__bg | js-overlay-bg"></div>
+      <div class="projects-overlay__inner d-flex flex-column justify-center | js-overlay-inner">
+        <div class="projects-overlay__subtitle t-500 t-10 t-12@sm t-14@lg t-ls-0.16 t-lh-1 t-black t-uppercase t-center overflow-hidden pb-0.5 | js-subtitle">
+          <span class="d-inline-block">Expertise Fields</span>
+        </div>
+        <ul class="projects-overlay__list">
+          {CATEGORIES.map(cat => (
+            <li class="projects-overlay__item | js-overlay-item">
+              <a class="projects-overlay__link | js-overlay-link" href={`/projects/${cat.slug}/`}>
+                <div class="project-title | js-title"><span>{cat.title}</span></div>
+              </a>
+              <div class="projects-overlay__divider | js-overlay-divider"><span></span></div>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </main>
+</Layout>
