@@ -25,6 +25,7 @@ const img3 = `${folderPath}/3.jpg`;
 const nextFolderPath = `/fields/${nextCategory.folderName}`;
 const nextImg1 = `${nextFolderPath}/1.jpg`;
 const nextImg2 = `${nextFolderPath}/2.jpg`;
+const nextImg3 = `${nextFolderPath}/3.jpg`;
 
 // --- Rich content per category ---
 interface CategoryContent {
@@ -363,7 +364,7 @@ const content = CONTENT[category.slug] ?? {
                 </div>
                 <div class="carousel__item user-select-none | js-carousel-item js-has-scroll-animation" animate-mq="sm" animate-from="yPercent: 40, rotate: 20, transformOrigin: 'bottom left', duration: 2, ease: 'expo.out'">
                   <div class="carousel__item-inner overflow-hidden | js-carousel-img">
-                    <img width="850" height="1080" src={nextImg1} class="d-none d-block@smup" alt={nextCategory.title} decoding="async" onerror="this.onerror=null; this.src='/apple-touch-icon.png';" />
+                    <img width="850" height="1080" src={nextImg3} class="d-none d-block@smup" alt={nextCategory.title} decoding="async" onerror="this.onerror=null; this.src='/apple-touch-icon.png';" />
                   </div>
                 </div>
               </div>
