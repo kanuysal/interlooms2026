@@ -111,9 +111,12 @@ a:hover, a:visited, a:focus, a:active {
   text-decoration: none;
 }
 
-/* Header Mix Blend Mode Difference */
+/* ── HEADER: mix-blend-mode: difference ──
+   White text + difference blend = auto-adapts on any bg color.
+   Dark bg → white text; Light bg → near-black text. */
 .header {
   mix-blend-mode: difference !important;
+  isolation: isolate;
   color: #ffffff !important;
 }
 
@@ -125,17 +128,22 @@ a:hover, a:visited, a:focus, a:active {
 .header .header__logo-text,
 .header .link__text,
 .header .btn__text,
-.header .menu-toggle__icon {
+.header .menu-toggle__icon,
+.header .js-header-color {
   color: #ffffff !important;
   text-decoration: none !important;
+}
+
+.header svg rect,
+.header .menu-toggle__icon rect {
   fill: #ffffff !important;
 }
 
-.header a:hover,
-.header a:visited,
-.header a:focus {
-  color: #ffffff !important;
-  text-decoration: none !important;
+.header .btn__outline__br .js-btn-outline-inner,
+.header .btn__outline__bl .js-btn-outline-inner,
+.header .btn__outline__tl .js-btn-outline-inner,
+.header .btn__outline__tr .js-btn-outline-inner {
+  background-color: #ffffff !important;
 }
 
 .header__logo {
@@ -143,7 +151,6 @@ a:hover, a:visited, a:focus, a:active {
   max-width: none !important;
   text-decoration: none !important;
   color: #ffffff !important;
-  mix-blend-mode: difference;
   display: inline-flex;
   align-items: center;
   outline: none;
@@ -158,16 +165,79 @@ a:hover, a:visited, a:focus, a:active {
   color: #ffffff !important;
   text-decoration: none !important;
   display: inline-block;
-  mix-blend-mode: difference;
 }
 
-/* Hide WebGL canvas on single project views */
-body.single-project .gl-canvas,
-[data-router-view="project"] ~ .gl-canvas {
-  opacity: 0 !important;
-  pointer-events: none !important;
+/* ── MOBILE MENU ──
+   Must NOT inherit blend-mode from .header.
+   Reset to normal with explicit dark text on cream background. */
+#mobile-menu,
+.nav-mobile {
+  mix-blend-mode: normal !important;
+  isolation: isolate;
+  background-color: #f5efeb !important;
+  color: #111111 !important;
+  z-index: 9999;
+  position: fixed !important;
 }
 
+.nav-mobile__list {
+  padding-top: 6rem;
+}
+
+.nav-mobile__item,
+.nav-mobile__item:hover,
+.nav-mobile a,
+.nav-mobile a:hover {
+  color: #111111 !important;
+  mix-blend-mode: normal !important;
+  font-size: clamp(1.8rem, 8vw, 3.5rem);
+}
+
+.nav-mobile__footer,
+.nav-mobile__footer a,
+.nav-mobile__footer__links a {
+  color: #111111 !important;
+  mix-blend-mode: normal !important;
+}
+
+/* ── MOBILE: Staggered images always visible ── */
+.staggered-images__img {
+  display: block !important;
+  width: 100%;
+  height: auto;
+}
+
+@media (max-width: 767px) {
+  /* Stack staggered images vertically */
+  .staggered-images .d-flex {
+    flex-direction: column !important;
+    gap: 1.5rem;
+  }
+  .staggered-images .w-8\/12 {
+    width: 100% !important;
+    padding-right: 0 !important;
+    padding-left: 0 !important;
+    margin-left: 0 !important;
+    margin-bottom: 0 !important;
+  }
+  /* Show carousel images on mobile */
+  .carousel__item-inner img {
+    display: block !important;
+  }
+  /* Footer carousel: show single item  */
+  .carousel__item-wrapper {
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+  }
+  .carousel__item {
+    min-width: 85vw;
+    scroll-snap-align: start;
+    flex-shrink: 0;
+  }
+}
+
+/* ── SITE LOADER ── */
 .site-loader {position: fixed;top: 0;left: 0;width: 100%;height: 100%;z-index: 10200;color: #d1c3b2;background-color: #f5efeb;}.home .site-loader {background-color: #8b8986;}.site-loader__progress {height: 10px;bottom: 0;left: 0;width: 100%;position: fixed;background-color: #f1b497;}
 .site-loader__heading-text {
   font-family: 'Prisma', 'Alliance', sans-serif;
